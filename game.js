@@ -1,5 +1,5 @@
 function getComputerChoice() {
-    var randomChoice = Math.random();
+    let randomChoice = Math.random();
     if (randomChoice < 1/3) {
         return 'Rock';
     }
@@ -12,23 +12,48 @@ function getComputerChoice() {
 }
 
 function playRound(playerChoice, computerChoice) {
-    var pc = playerChoice.substr(0, 1).toUpperCase() + playerChoice.substr(1).toLowerCase();
-    var cc = computerChoice;
+    let pc = playerChoice.substr(0, 1).toUpperCase() + playerChoice.substr(1).toLowerCase();
+    let cc = computerChoice;
     
     if ((cc === 'Rock' && pc == 'Paper')
         || (cc === 'Paper' && pc == 'Scissors')
         || (cc === 'Scissors' && pc == 'Rock')) {
-            return `${pc} beats ${cc}! You win!`
+            return `computer`
     }
     else if ((pc === 'Rock' && cc == 'Paper')
         || (pc === 'Paper' && cc == 'Scissors')
         || (pc === 'Scissors' && cc == 'Rock')) {
-            return `${cc} beats ${pc}! You lose :(`
+            return `player`
     }
     else if (cc === pc) {
-        return `Draw.`
+        return `tie`
     }
     else {
-        return `${playerChoice} is not a valid throw. Please choose Rock, Paper or Scissors.`
+        return `error`
+    }
+}
+
+function game() {
+    let playerScore = 0;
+    let computerScore = 0;
+    for (var i=0; i<5; i++) {
+        let playerChoice = prompt('Rock, Paper or Scissors?')
+        winner = playRound(playerChoice, getComputerChoice())
+        if (winner === 'player') {
+            playerScore++;
+        }
+        else if (winner === 'computer') {
+            computerScore++;
+        }
+    }
+
+    if (playerScore > computerScore) {
+        return `You win ${playerScore} to ${computerScore}!`
+    }
+    else if (computerScore > playerScore) {
+        return `You lose ${playerScore} to ${computerScore} :(`
+    }
+    else {
+        return `Tie game.`
     }
 }
